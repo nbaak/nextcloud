@@ -1,0 +1,32 @@
+version: '3.3'
+services:
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Ins4neL0n6P4$swOrD_Pl34$e-cHanGeIt!!
+      MYSQL_DATABASE: nextcloud
+      MYSQL_USER: nextcloud
+      MYSQL_PASSWORD: SecR37_My$QL--PA$$w0rD--cHanGeIt
+    volumes:
+      - ./data_db:/var/lib/mysql
+      
+  nextcloud:
+    image: nextcloud:latest
+    depends_on:
+      - db
+    restart: always
+    ports:
+      - 8081:80
+    environment:
+      MYSQL_DATABASE: nextcloud
+      MYSQL_USER: nextcloud
+      MYSQL_PASSWORD: SecR37_My$QL--PA$$w0rD--cHanGeIt
+      MYSQL_HOST: db:3306
+    volumes:
+      - ./data_nextcloud/apps:/var/www/html/custom_apps
+      - ./data_nextcloud/config:/var/www/html/config
+      - ./data_nextcloud/data:/var/www/html/data
+      - ./data_nextcloud/themes:/var/www/html/themes
+
+  
