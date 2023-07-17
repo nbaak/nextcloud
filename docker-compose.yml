@@ -7,7 +7,7 @@ networks:
 services:
   db:
     image: mariadb
-    container_name: mariadb
+    container_name: nextcloud_db
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: Ins4neL0n6P4$swOrD_Pl34$e-cHanGeIt!!
@@ -19,9 +19,9 @@ services:
     networks:
       - nextcloud_network
       
-  app:
+  nextcloud:
     image: nextcloud:latest
-    container_name: nextcloud
+    container_name: nextcloud_app
     depends_on:
       - db
     restart: always
@@ -40,10 +40,20 @@ services:
       - ./data_nextcloud/themes:/var/www/html/themes
     networks:
       - nextcloud_network
+      
+  cron:
+    image: k3nny0r/crontab
+    container_name: nextcloud_cron
+    volumes:
+      - type: bind
+        source: ./crontab.txt
+        target: /app/crontab.txt
+    networks:
+      - nextcloud_network
   
   redis:
     image: redis:alpine
-    container_name: redis
+    container_name: nextcloud_redis
     volumes:
       - /docker/nextcloud/redis:/data
     networks:
