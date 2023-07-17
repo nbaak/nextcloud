@@ -27,7 +27,7 @@ now reload nginx!
 
 `sudo service nginx reload`
 
-## Cron
+## Service Cron
 If you want to use the Cron Service and you want to use the container name, you have to add 'nextcloud' to the trusted_domains array in the nextcloud config. ./data_nextcloud/config/config.php.
 
 You need to set _Webcron_ inside the Nextcloud webui as Cron Type.
@@ -38,6 +38,13 @@ array (
     1 => 'nextcloud',
   ),
 ```
+
+Or you can edit the `crontab.txt` to:
+
+  */5 * * * * curl <your domain>/cron.php
+
+
+## System Cron
 If you want to use your System Cron you can use the cron.sh file. Open crontab -e and enter.
 
 ```bash
