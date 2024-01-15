@@ -10,9 +10,9 @@ If your user is not in the docker group, ask your admin, use the scripts  with s
 Use docker-compose up -d to start the cluser or simply the 'start.sh' Script.
 
 ## Usage
-start.sh  - starte the cluster
-stop.sh   - stops the cluster
-update.sh - pulls nextcloud, stops the cluster, removes the old container and starts the cluster again.
+- start.sh  - starte the cluster
+- stop.sh   - stops the cluster
+- update.sh - pulls nextcloud, stops the cluster, removes the old container and starts the cluster again.
 
 ## use with NGinx
 To use this cluster with NGinx you need to copy the 'nextcloud.conf' into the nginx sites-available using 
@@ -28,16 +28,7 @@ now reload nginx!
 `sudo service nginx reload`
 
 ## Service Cron
-If you want to use the Cron Service and you want to use the container name, you have to add 'nextcloud' to the trusted_domains array in the nextcloud config. ./data_nextcloud/config/config.php.
-
-You need to set _Webcron_ inside the Nextcloud webui as Cron Type.
-
-```bash
-array (
-    0 => <default entry>,
-    1 => 'nextcloud',
-  ),
-```
+You need to set _Cron_ inside the Nextcloud webui as Cron Type.
 
 Or you can edit the `crontab.txt` to:
 
