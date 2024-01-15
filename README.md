@@ -32,8 +32,9 @@ You need to set _Cron_ inside the Nextcloud webui as Cron Type.
 
 Or you can edit the `crontab.txt` to:
 
-  */5 * * * * curl <your domain>/cron.php
-
+```bash
+*/5 * * * * curl <your domain>/cron.php
+```
 
 ## System Cron
 If you want to use your System Cron you can use the cron.sh file. Open crontab -e and enter.
