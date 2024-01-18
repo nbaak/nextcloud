@@ -1,5 +1,5 @@
 #!/bin/bash
 
-docker pull nextcloud
-docker-compose down -v
+docker-compose pull
+docker-compose down
 docker-compose up -d
