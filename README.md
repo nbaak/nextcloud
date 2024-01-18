@@ -28,7 +28,7 @@ now reload nginx!
 `sudo service nginx reload`
 
 ## Service Cron
-You need to set _Cron_ inside the Nextcloud webui as Cron Type.
+You need to set _Webcron_ inside the Nextcloud webui as Cron Type.
 
 Or you can edit the `crontab.txt` to:
 
@@ -44,3 +44,12 @@ If you want to use your System Cron you can use the cron.sh file. Open crontab -
 
 ```
 You need to set _Cron_ inside the Nextcloud webui as Cron Type.
+
+## Webcron
+If you want to use Webcron you can use the webcron.sh file. Open crontab -e and enter.
+
+```bash
+*/5 * * * * <path to docker-compose.yml>/webcron.sh
+
+```
+You need to set _Webcron_ inside the Nextcloud webui as Cron Type.
