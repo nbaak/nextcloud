@@ -40,16 +40,6 @@ services:
       - ./data_nextcloud/themes:/var/www/html/themes
     networks:
       - nextcloud_network
-      
-  cron:
-    image: k3nny0r/crontab
-    container_name: nextcloud_cron
-    volumes:
-      - type: bind
-        source: ./crontab.txt
-        target: /app/crontab.txt
-    networks:
-      - nextcloud_network
   
   redis:
     image: redis:alpine
@@ -58,4 +48,4 @@ services:
       - /docker/nextcloud/redis:/data
     networks:
       - nextcloud_network
-    restart: unless-stopped
+    restart: always
