@@ -6,14 +6,14 @@ networks:
 
 services:
   db:
-    image: mariadb
+    image: mariadb:10.6
     container_name: nextcloud_db
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: Ins4neL0n6P4$swOrD_Pl34$e-cHanGeIt!!
+      MYSQL_ROOT_PASSWORD: secretRootPassword
       MYSQL_DATABASE: nextcloud
       MYSQL_USER: nextcloud
-      MYSQL_PASSWORD: SecR37_My$QL--PA$$w0rD--cHanGeIt
+      MYSQL_PASSWORD: secretPassword
     volumes:
       - ./data_db:/var/lib/mysql
     networks:
@@ -30,7 +30,7 @@ services:
     environment:
       MYSQL_DATABASE: nextcloud
       MYSQL_USER: nextcloud
-      MYSQL_PASSWORD: SecR37_My$QL--PA$$w0rD--cHanGeIt
+      MYSQL_PASSWORD: secretPassword
       MYSQL_HOST: db:3306
       REDIS_HOST: redis
     volumes:
