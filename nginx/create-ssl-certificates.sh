@@ -1,3 +1,9 @@
 #!/bin/bash
 
-openssl req -trustout -x509 -newkey rsa:4096 -days 3650 -nodes -keyout nextcloud.crt -out nextcloud.csr
+openssl req -newkey rsa:4096 \
+            -x509 \
+            -sha256 \
+            -days 3650 \
+            -nodes \
+            -out nextcloud.crt \
+            -keyout nextcloud.csr
