@@ -1,26 +1,27 @@
 # Nginx Config
-Edit, install and link the nginx config
+Create SSL certificates and install certs and nextcloud config.
 
-## Edit
-Open the `nextcloud.conf` with the editor of your choice and change the `server_name` value to your servername!
+## Create SSL Cert
+If you run a cloud in your lan it is still recommended to use an ssl certificate to encrypt your trafic.
 
-
-## Install
-The install.sh copies the config file in your nginx dir, usualy root permissions are needed here.
+To create an ssl certificate we use openssl. The Script `create-ssl-certificates.sh` will create you a nextcloud.crt and a nextcloud.csr.
 
 ```bash
-sudo ./install.sh
+./create-ssl-certificates.sh 
 ```
 
-## Link
-link.sh will create a symlink and 'enables' the config file.
+## Install Config
+To install the config use the install.sh script.
+
+For example:  
 
 ```bash
-sudo ./link.sh
-``` 
-
-Now you just need to reload or restart the nginx server,
-
-```bash
-sudo service nginx restart
+./install.sh "nextcloud nextcloud.lan"
 ```
+
+The script will set nextcloud and nextcloud.lan as server in the nginx config file for nextcloud.
+
+If SSL Certs exists the script will also copy the cert files to nginx/ssl. The script will link the cert and the key in the nextcloud.conf.
+
+## OpenSSL
+If you want to use the cloud with an letsencrypt cert, you skip step 1 Create SSL Cert and create your own ssl certificate after installing the config (without ssl) and then use certbot.
