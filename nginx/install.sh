@@ -2,6 +2,12 @@
 
 SERVER_NAMES=$1
 
+
+if [ -z "$SERVER_NAMES" ]; then
+    SERVER_NAMES="nextcloud"
+fi
+
+
 cp nextcloud.conf /etc/nginx/sites-available
 
 if [ -f *.crt ] && [ -f *.csr ]; then
