@@ -1,27 +1,24 @@
 #!/bin/bash
 
-SERVER_NAMES=$1
+# Beispiel: ./setup_nextcloud.sh cloud.meinlan.local
 
+DOMAIN="$1"
 
-if [ -z "$SERVER_NAMES" ]; then
-    SERVER_NAMES="nextcloud"
+if [ -z "$DOMAIN" ]; then
+  echo "❌ Bitte Domain angeben, z.B.: ./setup_nextcloud.sh cloud.meinlan.local"
+  exit 1
 fi
 
+TEMPLATE="/etc/nginx/sites-available/nextcloud.template"
+TARGET="/etc/nginx/sites-available/nextcloud.conf"
 
-cp nextcloud.conf /etc/nginx/sites-available
+# Platzhalter __DOMAIN__ ersetzen
+sed "s/__DOMAIN__/$DOMAIN/g" "$TEMPLATE" > "$TARGET"
 
-if [ -f *.crt ] && [ -f *.csr ]; then
+# Symlink nach sites-enabled legen (falls nicht vorhanden)
+ln -sf "$TARGET" /etc/nginx/sites-enabled/nextcloud.conf
 
-mkdir -p /etc/nginx/ssl
-cp *.crt /etc/nginx/ssl/
-cp *.csr /etc/nginx/ssl/
+# Nginx reload
+systemctl reload nginx
 
-sed -i 's/#SSLCert/#SSLCERT\n  listen 443 ssl;\n  ssl_certificate \/etc\/nginx\/ssl\/nextcloud.crt;\n  ssl_certificate_key \/etc\/nginx\/ssl\/nextcloud.csr;/' /etc/nginx/sites-available/nextcloud.conf
-
-sed -i 's/#SSLRedirect/server {\n    server_name #SERVER_NAMES;\n    listen 80;\n    return 301 https:\/\/$host$request_uri;\n}/' /etc/nginx/sites-available/nextcloud.conf
-
-sed -i "s/#SERVER_NAMES/$SERVER_NAMES/g" /etc/nginx/sites-available/nextcloud.conf
-
-else
-    echo "no keys found"
-fi
+echo "✅ Nextcloud Nginx-Config eingerichtet für $DOMAIN"
