@@ -4,7 +4,7 @@ tmpfile=$(mktemp)
 
 docker compose pull 2>&1 | tee "$tmpfile"
 
-if grep -iEq "downloaded newer image|pull complete|pulled" "$tmpfile"; then
+if grep -iEq "downloaded newer image|pull complete" "$tmpfile"; then
     echo "Images were updated. Doing update..."
     # do_update
     docker compose down
